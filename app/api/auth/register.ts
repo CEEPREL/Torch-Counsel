@@ -10,15 +10,11 @@ export default async function handler(
   const { email, password, name } = req.body;
 
   try {
-    // Call the existing createUser route
-    const createUserRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/createUser/route`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, name }),
-      }
-    );
+    const createUserRes = await fetch(`api/createUser/route`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, name }),
+    });
 
     const data = await createUserRes.json();
     if (!createUserRes.ok) return res.status(400).json(data);

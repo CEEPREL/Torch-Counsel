@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
 
     const userData: AppUser = {
       id: authUser.uid,
+      coupleCode: "",
       email,
       name,
       role: role || "user",
