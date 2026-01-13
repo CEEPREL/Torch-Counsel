@@ -1,3 +1,4 @@
+import { AppUser } from "@/app/types/user";
 import type { NextApiRequest, NextApiResponse } from "next";
 import fetch from "node-fetch";
 
@@ -16,11 +17,17 @@ export default async function handler(
       body: JSON.stringify({ email, password, name }),
     });
 
-    const data = await createUserRes.json();
+    const data: { user: AppUser } = await createUserRes.json();
     if (!createUserRes.ok) return res.status(400).json(data);
 
     // Return created user info
-    res.status(200).json({ uid: data.uid, email: data.email, name });
+    res
+      .status(200)
+      .json({
+        uid: data.user.partnerId,
+        email: data.user.email,
+        name: data.user.name,
+      });
   } catch (err: any) {
     console.error(err);
     res.status(500).json({ error: err.message });

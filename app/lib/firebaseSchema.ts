@@ -9,7 +9,7 @@ export type User = {
 export type PartnerProfile = {
   userId: string;
   personality: {
-    testResults?: any;
+    testResults?: unknown;
     loveLanguages?: string[];
     conflictPatterns?: string[];
     longTermValues?: string[];
@@ -22,14 +22,26 @@ export type PartnerProfile = {
 };
 
 export type Message = {
-  from: string;
-  to: string;
-  text: string;
+  id?: string;
+  chatId: string;
+  senderId: string;
+  content: string;
   createdAt: number;
+  type?: "text" | "image";
+  status?: "sent" | "delivered" | "read";
 };
 
 export const Collections = {
   users: "users",
   partnerProfiles: "partnerProfiles",
   messages: "messages",
+  chatMessages: "chatMessages",
+  chatSessions: "chatSessions",
 };
+
+export {
+  sendMessage,
+  getChatMessages,
+  getUserMessages,
+  onChatMessagesSnapshot,
+} from "../api/chat/main.chat";
